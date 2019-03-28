@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~  Copyright (C)  2018-2019 Kynetics, LLC
+  ~  SPDX-License-Identifier: Apache-2.0
+  -->
+
+<font-family xmlns:android="http://schemas.android.com/apk/res/android">
+    <font
+        android:fontStyle="normal"
+        android:fontWeight="400"
+        android:font="@font/notosans_bold" />
+
+</font-family>

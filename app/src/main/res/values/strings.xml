@@ -1,0 +1,48 @@
+<!--
+  ~  Copyright (C)  2018-2019 Kynetics, LLC
+  ~  SPDX-License-Identifier: Apache-2.0
+  -->
+
+<resources>
+    <string name="app_name">GPIO handler</string>
+    <string name="export">Export</string>
+    <string name="manageGpioListView">Enter GPIO numbers (comma separated)</string>
+    <string name="unexport">Unexport</string>
+    <string name="is_exported">Is exported?</string>
+    <string name="monitor_gpio_list">Monitor GPIO list</string>
+    <string name="manageGpioListEdit">GPIO list</string>
+    <string name="edit_value">Edit value</string>
+    <string name="monitor_single_gpio"> "Monitor for GPIO %d"</string>
+    <string name="startMonitoring">Start monitoring</string>
+    <string name="stopMonitoring">Stop monitoring</string>
+    <string name="set_direction">Set direction</string>
+    <string name="get_direction">Get direction</string>
+    <string name="set_value">Set value</string>
+    <string name="get_value">Get value</string>
+    <string name="title_gpio_activity">Kynetics GPIO lib</string>
+    <string name="title_selected_gpio_activity">Selected GPIO</string>
+    <string name="select_gpio">Select this GPIO</string>
+    <string name="list_gpio_select">Select this list of GPIO</string>
+    <string name="title_monitor_gpio_activity">Monitor GPIO</string>
+    <string name="exportListGpioButton">Export GPIO</string>
+    <string name="unexportListGpioButton">Unexport GPIO</string>
+    <string name="list_gpio_edit">Edit the list of GPIO %s</string>
+    <string name="single_gpio_show">Selected GPIO %d</string>
+    <string name="new_value_gpio">New value %d for GPIO %d</string>
+    <string name="in_direction">IN</string>
+    <string name="out_direction">OUT</string>
+    <string name="one_value">1</string>
+    <string name="zero_value">0</string>
+    <string name="init_initialization">Load initialization file</string>
+    <string name="appbar_scrolling_view_behavior" translatable="false">android.support.design.widget.AppBarLayout$ScrollingViewBehavior</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="monitor_and_selection">Monitor and selection</string>
+    <string name="load_initialization_file">Load initialization file</string>
+    <string name="monitor">Monitor</string>
+    <string name="select">Select</string>
+    <string name="navigation_header">Navigation header</string>
+    <string name="kymetics_kynetics_com">Kymetics@kynetics.com</string>
+    <string name="select_initialization_file">Select initialization file</string>
+    <string name="nav_header_title">GPIO handler</string>
+</resources>

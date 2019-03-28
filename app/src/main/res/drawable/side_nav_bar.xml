@@ -1,0 +1,14 @@
+<!--
+  ~  Copyright (C)  2018-2019 Kynetics, LLC
+  ~  SPDX-License-Identifier: Apache-2.0
+  -->
+
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <gradient
+        android:angle="135"
+        android:centerColor="#009688"
+        android:endColor="#00695C"
+        android:startColor="#4DB6AC"
+        android:type="linear" />
+</shape>

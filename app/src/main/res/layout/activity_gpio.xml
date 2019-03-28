@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~  Copyright (C)  2018-2019 Kynetics, LLC
+  ~  SPDX-License-Identifier: Apache-2.0
+  -->
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <Button
+        android:id="@+id/monitor_btn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/monitor"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/select_btn"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/gpio_manage_list_edit" />
+
+    <Button
+        android:id="@+id/select_btn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/select"
+        app:layout_constraintBottom_toBottomOf="@+id/monitor_btn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/monitor_btn"
+        app:layout_constraintTop_toTopOf="@+id/monitor_btn" />
+
+    <TextView
+        android:id="@+id/gpio_manage_list_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/manageGpioListView"
+        app:layout_constraintBottom_toTopOf="@+id/gpio_manage_list_edit"
+        app:layout_constraintEnd_toEndOf="@+id/select_btn"
+        app:layout_constraintStart_toStartOf="@+id/monitor_btn"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/gpio_manage_list_edit"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/manageGpioListEdit"
+        android:inputType="textPersonName"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toTopOf="@+id/monitor_btn"
+        app:layout_constraintEnd_toEndOf="@+id/select_btn"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/monitor_btn"
+        app:layout_constraintTop_toBottomOf="@+id/gpio_manage_list_view" />
+</android.support.constraint.ConstraintLayout>

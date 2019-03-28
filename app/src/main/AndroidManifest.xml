@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~  Copyright (C)  2018-2019 Kynetics, LLC
+  ~  SPDX-License-Identifier: Apache-2.0
+  -->
+
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.kynetics.gpiolibapp">
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".GpioActivity"
+            android:windowSoftInputMode="stateAlwaysHidden">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+        </activity>
+        <activity
+            android:name=".SelectedGpioActivity"
+            android:label="@string/title_selected_gpio_activity"
+            android:parentActivityName=".GpioActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.kynetics.gpiolibapp.GpioActivity" />
+
+        </activity>
+        <activity
+            android:name=".MonitorGpioActivity"
+            android:label="@string/title_monitor_gpio_activity"
+            android:parentActivityName=".GpioActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.kynetics.gpiolibapp.GpioActivity" />
+        </activity>
+    </application>
+
+</manifest>

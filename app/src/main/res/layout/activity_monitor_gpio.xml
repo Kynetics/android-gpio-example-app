@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~  Copyright (C)  2018-2019 Kynetics, LLC
+  ~  SPDX-License-Identifier: Apache-2.0
+  -->
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/export_btn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:onClick="onExport"
+        android:text="@string/export"
+        app:layout_constraintBottom_toTopOf="@+id/unexport_btn"
+        app:layout_constraintEnd_toEndOf="@+id/unexport_btn"
+        app:layout_constraintStart_toStartOf="@+id/unexport_btn"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/unexport_btn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:onClick="onUnexport"
+        android:text="@string/unexport"
+        app:layout_constraintBottom_toTopOf="@+id/start_stop_monitoring_btn"
+        app:layout_constraintEnd_toEndOf="@+id/start_stop_monitoring_btn"
+        app:layout_constraintStart_toStartOf="@+id/start_stop_monitoring_btn"
+        app:layout_constraintTop_toBottomOf="@+id/export_btn" />
+
+    <Button
+        android:id="@+id/start_stop_monitoring_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:onClick="onStartStopMonitoring"
+        android:text="@string/startMonitoring"
+        app:layout_constraintBottom_toTopOf="@+id/newValueLinearLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/unexport_btn" />
+
+    <LinearLayout
+        android:id="@+id/newValueLinearLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/start_stop_monitoring_btn"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/start_stop_monitoring_btn"
+        app:layout_constraintTop_toBottomOf="@+id/start_stop_monitoring_btn"></LinearLayout>
+
+
+</android.support.constraint.ConstraintLayout>

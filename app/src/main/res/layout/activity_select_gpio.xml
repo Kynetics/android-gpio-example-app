@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~  Copyright (C)  2018-2019 Kynetics, LLC
+  ~  SPDX-License-Identifier: Apache-2.0
+  -->
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+
+    <Spinner
+        android:id="@+id/selectGpioSpinner"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/select_gpio"
+        app:layout_constraintBottom_toTopOf="@+id/exportBtn"
+        app:layout_constraintEnd_toEndOf="@+id/setDirectionRadio"
+        app:layout_constraintStart_toStartOf="@+id/setDirectionRadio"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/exportBtn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:onClick="onExportGpio"
+        android:text="@string/export"
+        app:layout_constraintBottom_toTopOf="@+id/unexportBtn"
+        app:layout_constraintEnd_toEndOf="@+id/setDirectionRadio"
+        app:layout_constraintStart_toStartOf="@+id/setDirectionRadio"
+        app:layout_constraintTop_toBottomOf="@+id/selectGpioSpinner" />
+
+    <Button
+        android:id="@+id/unexportBtn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:onClick="onUnexportGpio"
+        android:text="@string/unexport"
+        app:layout_constraintBottom_toTopOf="@+id/isExportedBtn"
+        app:layout_constraintEnd_toEndOf="@+id/setDirectionRadio"
+        app:layout_constraintStart_toStartOf="@+id/setDirectionRadio"
+        app:layout_constraintTop_toBottomOf="@+id/exportBtn" />
+
+    <Button
+        android:id="@+id/isExportedBtn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:onClick="isExported"
+        android:text="@string/is_exported"
+        app:layout_constraintBottom_toTopOf="@+id/getDirectionBtn"
+        app:layout_constraintEnd_toEndOf="@+id/setDirectionRadio"
+        app:layout_constraintStart_toStartOf="@+id/setDirectionRadio"
+        app:layout_constraintTop_toBottomOf="@+id/unexportBtn" />
+
+    <Button
+        android:id="@+id/getDirectionBtn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:onClick="getDirection"
+        android:text="@string/get_direction"
+        app:layout_constraintBottom_toTopOf="@+id/setDirectionRadio"
+        app:layout_constraintEnd_toEndOf="@+id/setDirectionRadio"
+        app:layout_constraintStart_toStartOf="@+id/setDirectionRadio"
+        app:layout_constraintTop_toBottomOf="@+id/isExportedBtn" />
+
+    <RadioGroup
+        android:id="@+id/setDirectionRadio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:orientation="horizontal"
+        android:padding="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/getValueBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/getDirectionBtn">
+
+        <TextView
+            android:id="@+id/tvDirection"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/set_direction" />
+
+        <RadioButton
+            android:id="@+id/in_direction"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/in_direction" />
+
+        <RadioButton
+            android:id="@+id/out_direction"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/out_direction" />
+
+    </RadioGroup>
+
+
+    <Button
+        android:id="@+id/getValueBtn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:onClick="getValue"
+        android:text="@string/get_value"
+        app:layout_constraintBottom_toTopOf="@+id/setValueRadio"
+        app:layout_constraintEnd_toEndOf="@+id/setDirectionRadio"
+        app:layout_constraintStart_toStartOf="@+id/setDirectionRadio"
+        app:layout_constraintTop_toBottomOf="@+id/setDirectionRadio" />
+
+    <RadioGroup
+        android:id="@+id/setValueRadio"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:orientation="horizontal"
+        android:singleLine="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/getValueBtn"
+        app:layout_constraintStart_toStartOf="@+id/getValueBtn"
+        app:layout_constraintTop_toBottomOf="@+id/getValueBtn">
+
+        <TextView
+            android:id="@+id/tvValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/set_value" />
+
+        <RadioButton
+            android:id="@+id/one_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/one_value" />
+
+        <RadioButton
+            android:id="@+id/zero_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/zero_value" />
+
+    </RadioGroup>
+
+
+</android.support.constraint.ConstraintLayout>
