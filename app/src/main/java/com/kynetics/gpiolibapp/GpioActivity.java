@@ -24,7 +24,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.kynetics.gpiolib.GpioManager;
+import com.kynetics.gpiolib.GpioManagerInterface;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -42,7 +42,7 @@ public class GpioActivity extends AppCompatActivity implements NavigationView.On
     private ArrayList<Integer> integerArrayListGpio;
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
-
+    private GpioManagerInterface manager = GpioManagerInterface.getGpioManager();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,9 +83,9 @@ public class GpioActivity extends AppCompatActivity implements NavigationView.On
                 Log.d(TAG, "equals json "+MimeTypeMap.getFileExtensionFromUrl(uriTree.getPath()));
                 String jsonString = loadJSONFromAsset(uriTree);
                 try {
-                    GpioManager.getInstance().initGpio(jsonString);
-                    Toast.makeText(this, "Load of GPIO initialization file completed. Initialized GPIO "+getStringFromList(GpioManager.getInstance().getInitializedGpio()), Toast.LENGTH_LONG).show();
-                } catch (GpioManager.EmptyJsonFileException|RuntimeException e) {
+                    manager.initGpio(jsonString);
+                    Toast.makeText(this, "Load of GPIO initialization file completed. Initialized GPIO "+getStringFromList(manager.getInitializedGpio()), Toast.LENGTH_LONG).show();
+                } catch (GpioManagerInterface.EmptyJsonFileException|RuntimeException e) {
                     handleException(e);
                 }
             }

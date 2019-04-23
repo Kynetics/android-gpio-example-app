@@ -15,8 +15,8 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.kynetics.gpiolib.GpioManager;
-import com.kynetics.gpiolib.GpioPin;
+import com.kynetics.gpiolib.GpioManagerInterface;
+import com.kynetics.gpiolib.GpioPinInterface;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -27,9 +27,9 @@ import java.util.Locale;
 public class SelectedGpioActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
 
     private static final String TAG = SelectedGpioActivity.class.getSimpleName();
-    private GpioPin gpioPin;
+    private GpioPinInterface gpioPin;
     private int gpioId;
-    List<GpioPin> integerGpioPinList = new ArrayList<>();
+    List<GpioPinInterface> integerGpioPinList = new ArrayList<>();
     private Spinner selectedGpioSpinner;
     private RadioGroup setDirectionRadioGroup;
     private RadioGroup setValueRadioGroup;
@@ -38,6 +38,7 @@ public class SelectedGpioActivity extends AppCompatActivity implements AdapterVi
     private Button isExportedButton;
     private Button getDirectionBtn;
     private Button getValueBtn;
+    private GpioManagerInterface manager = GpioManagerInterface.getGpioManager();
 
 
     @Override
@@ -88,12 +89,12 @@ public class SelectedGpioActivity extends AppCompatActivity implements AdapterVi
         if(integerGpioPinList.size()==1){
             selectedGpioSpinner.setVisibility(View.GONE);
             gpioPin = integerGpioPinList.get(0);
-            gpioId = gpioPin.gpioId;
+            gpioId = gpioPin.getGpioId();
         }
         else{
-            selectedGpioSpinner.setAdapter(new ArrayAdapter<>(this, R.layout.spinner_item, getArrayFrom((ArrayList<GpioPin>) integerGpioPinList)));
+            selectedGpioSpinner.setAdapter(new ArrayAdapter<>(this, R.layout.spinner_item, getArrayFrom((ArrayList<GpioPinInterface>) integerGpioPinList)));
             gpioPin = integerGpioPinList.get(0);
-            gpioId = gpioPin.gpioId;
+            gpioId = gpioPin.getGpioId();
             selectedGpioSpinner.setVisibility(View.VISIBLE);
         }
 
@@ -103,7 +104,7 @@ public class SelectedGpioActivity extends AppCompatActivity implements AdapterVi
     public void onExportGpio(View view) {
         Log.d(TAG, "Export");
         try {
-            GpioManager.getInstance().export(gpioPin.gpioId);
+            manager.export(gpioPin.getGpioId());
             setDirectionRadioGroup.clearCheck();
             setValueRadioGroup.clearCheck();
         } catch (FileNotFoundException e) {
@@ -116,7 +117,7 @@ public class SelectedGpioActivity extends AppCompatActivity implements AdapterVi
         try {
             setDirectionRadioGroup.clearCheck();
             setValueRadioGroup.clearCheck();
-            GpioManager.getInstance().unexport(gpioPin.gpioId);
+            manager.unexport(gpioPin.getGpioId());
         } catch (FileNotFoundException e) {
             handleException(e);
         }
@@ -165,18 +166,18 @@ public class SelectedGpioActivity extends AppCompatActivity implements AdapterVi
         Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
     }
 
-    private List<GpioPin> getGpioPinList(ArrayList<Integer> gpioIntegerList) {
-        ArrayList<GpioPin> gpioPinArrayList = new ArrayList<>(gpioIntegerList.size());
+    private List<GpioPinInterface> getGpioPinList(ArrayList<Integer> gpioIntegerList) {
+        ArrayList<GpioPinInterface> gpioPinArrayList = new ArrayList<>(gpioIntegerList.size());
         for(int gpio : gpioIntegerList)
-            gpioPinArrayList.add(GpioManager.getInstance().getGpio(gpio));
+            gpioPinArrayList.add(manager.getGpio(gpio));
         return  gpioPinArrayList;
     }
 
-    private String[] getArrayFrom(ArrayList<GpioPin> myIntegerArrayList) {
+    private String[] getArrayFrom(ArrayList<GpioPinInterface> myIntegerArrayList) {
         String[] retArray = new String[myIntegerArrayList.size()];
         for(int i = 0 ; i < myIntegerArrayList.size(); i++)
-            retArray[i] = String.valueOf(myIntegerArrayList.get(i).gpioId);
-            return retArray;
+            retArray[i] = String.valueOf(myIntegerArrayList.get(i).getGpioId());
+        return retArray;
     }
 
     @Override
@@ -184,7 +185,7 @@ public class SelectedGpioActivity extends AppCompatActivity implements AdapterVi
         setDirectionRadioGroup.clearCheck();
         setValueRadioGroup.clearCheck();
         gpioId = Integer.parseInt((String) selectedGpioSpinner.getSelectedItem());
-        gpioPin = GpioManager.getInstance().getGpio(gpioId);
+        gpioPin = manager.getGpio(gpioId);
         isExportedButton.setClickable(true);
         setDirectionRadioGroup.clearCheck();
         setValueRadioGroup.clearCheck();

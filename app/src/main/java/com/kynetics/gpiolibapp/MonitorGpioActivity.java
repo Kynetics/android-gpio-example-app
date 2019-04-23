@@ -15,9 +15,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.kynetics.gpiolib.GpioListener;
-import com.kynetics.gpiolib.GpioManager;
-import com.kynetics.gpiolib.GpioPin;
+import com.kynetics.gpiolib.GpioListenerInterface;
+import com.kynetics.gpiolib.GpioManagerInterface;
+import com.kynetics.gpiolib.GpioPinInterface;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -25,8 +25,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Observable;
-import java.util.Observer;
 import java.util.Set;
 
 public class MonitorGpioActivity extends AppCompatActivity {
@@ -34,11 +32,12 @@ public class MonitorGpioActivity extends AppCompatActivity {
     private static final String TAG = MonitorGpioActivity.class.getSimpleName();
     private LinearLayout newValueLinearLayout;
     private Map<Integer, TextView> integerTextViewMap;
-    List<GpioPin> integerGpioPinList = new ArrayList<>();
+    List<GpioPinInterface> integerGpioPinList = new ArrayList<>();
     private boolean exporting;
     private Button exportButton;
     private Button unexportButton;
     private Button startStopMonitoringButton;
+    private GpioManagerInterface manager = GpioManagerInterface.getGpioManager();
 
     @SuppressLint("UseSparseArrays")
     @Override
@@ -66,15 +65,15 @@ public class MonitorGpioActivity extends AppCompatActivity {
         }
     }
 
-    private List<GpioPin> getGpioPinList(Set<Integer> gpioIntegerList) {
-        ArrayList<GpioPin> gpioPinArrayList = new ArrayList<>(gpioIntegerList.size());
+    private List<GpioPinInterface> getGpioPinList(Set<Integer> gpioIntegerList) {
+        ArrayList<GpioPinInterface> gpioPinArrayList = new ArrayList<>(gpioIntegerList.size());
         for(int gpio : gpioIntegerList)
-            gpioPinArrayList.add(GpioManager.getInstance().getGpio(gpio));
+            gpioPinArrayList.add(manager.getGpio(gpio));
         return  gpioPinArrayList;
     }
 
     public void onStartStopMonitoring(View view){
-        if (!GpioManager.getInstance().isMonitoring()){
+        if (!manager.isMonitoring()){
             startMonitoring();
         }
         else {
@@ -85,44 +84,43 @@ public class MonitorGpioActivity extends AppCompatActivity {
     public void startMonitoring() {
         Log.d(TAG, "startMonitoring");
         try {
-            GpioManager.getInstance().startMonitoring(integerGpioPinList);
+            manager.startMonitoring(integerGpioPinList);
             Log.d(TAG, "startMonitoring");
             startStopMonitoringButton.setText(R.string.stopMonitoring);
-            for(final GpioPin gpio : integerGpioPinList){
-                gpio.setListener(new GpioListener(gpio.gpioId, new Observer() {
+            for(final GpioPinInterface gpio : integerGpioPinList){
+                gpio.setListener(new GpioListenerInterface() {
                     @Override
-                    public void update(Observable o, Object arg) {
+                    public void onEvent(final int i) {
                         Log.d(TAG, "set text");
-                        final int newValue = (Integer) arg;
                         newValueLinearLayout.post(new Runnable() {
                             @Override
                             public void run() {
-                                integerTextViewMap.get(gpio.gpioId).setText(getString(R.string.new_value_gpio, newValue, gpio.gpioId));
+                                integerTextViewMap.get(gpio.getGpioId()).setText(getString(R.string.new_value_gpio, i, gpio.getGpioId()));
                             }
                         });
                     }
-                }
-                ));
+                });
+
             }
-        } catch (GpioManager.NotAlreadyExportException e) {
+        } catch (GpioManagerInterface.NotAlreadyExportException e) {
             handleException(e);
-        } catch (GpioManager.AlreadyMonitorException e) {
+        } catch (GpioManagerInterface.AlreadyMonitorException e) {
             handleException(e);
         }
     }
 
     public void stopMonitoring() {
         Log.d(TAG, "stopMonitoring");
-        if(GpioManager.getInstance().isMonitoring()) {
+        if(manager.isMonitoring()) {
             for (Map.Entry<Integer, TextView> textViewEntry : integerTextViewMap.entrySet()) {
                 textViewEntry.getValue().setText(getString(R.string.monitor_single_gpio, textViewEntry.getKey()));
             }
-            for (GpioPin gpio : integerGpioPinList)
+            for (GpioPinInterface gpio : integerGpioPinList)
                 gpio.setListener(null);
             try {
-                GpioManager.getInstance().stopMonitoring();
+                manager.stopMonitoring();
                 startStopMonitoringButton.setText(R.string.startMonitoring);
-            } catch (GpioManager.NotMonitorException e) {
+            } catch (GpioManagerInterface.NotMonitorException e) {
                 handleException(e);
             }
         }
@@ -131,7 +129,9 @@ public class MonitorGpioActivity extends AppCompatActivity {
     public void onExport(View view) {
         Log.d(TAG, "exportListGpio");
         try {
-            GpioManager.getInstance().export(integerGpioPinList);
+            for(GpioPinInterface gpioPin: integerGpioPinList){
+                manager.export(gpioPin.getGpioId());
+            }
         } catch (FileNotFoundException e) {
             handleException(e);
         }
@@ -139,10 +139,12 @@ public class MonitorGpioActivity extends AppCompatActivity {
 
     public void onUnexport(View view) {
         Log.d(TAG, "unexportListGpio");
-        if(GpioManager.getInstance().isMonitoring())
+        if(manager.isMonitoring())
             stopMonitoring();
         try {
-            GpioManager.getInstance().unexport(integerGpioPinList);
+            for(GpioPinInterface gpioPin: integerGpioPinList){
+                manager.unexport(gpioPin.getGpioId());
+            }
         } catch (FileNotFoundException e) {
             handleException(e);
         }
@@ -155,7 +157,7 @@ public class MonitorGpioActivity extends AppCompatActivity {
 
     @Override
     protected void onPause() {
-        if(GpioManager.getInstance().isMonitoring())
+        if(manager.isMonitoring())
             stopMonitoring();
         super.onPause();
         Log.d(TAG, "onPause");
