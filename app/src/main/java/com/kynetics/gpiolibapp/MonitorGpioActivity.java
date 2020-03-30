@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.kynetics.gpiolib.GpioListenerInterface;
+import com.kynetics.gpiolib.GpioManagerFactory;
 import com.kynetics.gpiolib.GpioManagerInterface;
 import com.kynetics.gpiolib.GpioPinInterface;
 
@@ -37,7 +38,7 @@ public class MonitorGpioActivity extends AppCompatActivity {
     private Button exportButton;
     private Button unexportButton;
     private Button startStopMonitoringButton;
-    private GpioManagerInterface manager = GpioManagerInterface.getGpioManager();
+    private GpioManagerInterface manager = GpioManagerFactory.getInstance();
 
     @SuppressLint("UseSparseArrays")
     @Override

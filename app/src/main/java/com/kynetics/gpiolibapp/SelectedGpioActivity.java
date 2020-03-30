@@ -15,6 +15,7 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.kynetics.gpiolib.GpioManagerFactory;
 import com.kynetics.gpiolib.GpioManagerInterface;
 import com.kynetics.gpiolib.GpioPinInterface;
 
@@ -38,7 +39,7 @@ public class SelectedGpioActivity extends AppCompatActivity implements AdapterVi
     private Button isExportedButton;
     private Button getDirectionBtn;
     private Button getValueBtn;
-    private GpioManagerInterface manager = GpioManagerInterface.getGpioManager();
+    private GpioManagerInterface manager = GpioManagerFactory.getInstance();
 
 
     @Override

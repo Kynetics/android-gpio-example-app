@@ -24,6 +24,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.kynetics.gpiolib.GpioManagerFactory;
 import com.kynetics.gpiolib.GpioManagerInterface;
 
 import java.io.IOException;
@@ -42,7 +43,7 @@ public class GpioActivity extends AppCompatActivity implements NavigationView.On
     private ArrayList<Integer> integerArrayListGpio;
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
-    private GpioManagerInterface manager = GpioManagerInterface.getGpioManager();
+    private GpioManagerInterface manager = GpioManagerFactory.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
